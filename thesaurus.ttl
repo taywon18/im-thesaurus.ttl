@@ -1,0 +1,264 @@
+@prefix atc: <http://purl.bioontology.org/ontology/UATC/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ansm: <http://ansm.sante.fr/> .
+@prefix pharm: <http://pharm.nexus.io/last#> .
+@base <http://ansm.sante.fr/> .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://ansm.sante.fr/dbsante#actor
+ansm:interaction-cause rdf:type owl:ObjectProperty ;
+					   rdfs:label "Cause" .
+
+
+###  http://ansm.sante.fr/dbsante#severity
+ansm:interactionSeverity rdf:type owl:ObjectProperty ;
+						  rdfs:label "Sévérité" .
+						
+ansm:interaction rdf:type pharm:interaction ;
+						  rdfs:label "Interaction" .
+						  
+ansm:attitude rdf:type owl:Class ;
+						 rdfs:label "Attitude à adopter" .
+
+#################################################################
+#    Severities
+#################################################################
+
+<interactionSeverity/ci> rdf:type owl:ObjectProperty ;
+						  rdfs:label "contre-indiqué" .
+						  
+<interactionSeverity/dec> rdf:type owl:ObjectProperty ;
+						  rdfs:label "déconseillé" .
+						  
+<interactionSeverity/pe> rdf:type owl:ObjectProperty ;
+						  rdfs:label "précaution d'emploi" .
+						  
+<interactionSeverity/apec> rdf:type owl:ObjectProperty ;
+						  rdfs:label "à prendre en compte" .
+
+
+#################################################################
+#    Subgroups
+#################################################################
+
+<subgrp/living-attenuated-vaccine> rdf:type owl:Class ;
+					                  rdfs:label "Vaccins vivants atténués" .
+atc:J07AE02 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07AN01 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07AP01 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BA03 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BB03 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BD01 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BD51 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BD52 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BD53 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BD54 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BE01 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BF01 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BF02 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BF04 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BH01 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BJ01 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BJ51 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BK01 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BK02 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BL01 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+atc:J07BX01 rdfs:subClassOf <subgrp/living-attenuated-vaccine> .
+
+<subgrp/anticonvulsivants-enzymatic-inducers> rdf:type owl:Class ;
+												 rdfs:label "Anticonvulsivants inducteurs enzymatiques" .
+#TODO
+
+
+												 
+#################################################################
+#    Interactions
+#################################################################
+
+#page 2
+
+<interaction/1> rdf:type ansm:interaction ;
+				   rdfs:label "ABATACEPT - Anti tnf alpha" ;
+				   rdfs:comment "Majoration de l’immunodépression." ;
+				   ansm:interactionSeverity <interactionSeverity/dec> .
+atc:L04AB <interaction/1> atc:L04AA24 .
+atc:L04AA24 <interaction/1> atc:L04AB .
+
+<interaction/2> rdf:type ansm:interaction ;
+				   rdfs:label "ABATACEPT - Vaccins vivants atténués" ;
+				   rdfs:comment "Risque de maladie vaccinale généralisée, éventuellement mortelle." ;
+				   <interactionSeverity> <interactionSeverity/dec> .
+<subgrp/living-attenuated-vaccine> <interaction/2> atc:L04AA24 .
+atc:L04AA24  <interaction/2> <subgrp/living-attenuated-vaccine>.
+
+<interaction/3> rdf:type ansm:interaction ;
+				   rdfs:label "ABIRATERONE - anticonvulsivants inducteurs enzymatiques" ;
+				   rdfs:comment "Diminution notable des concentrations plasmatiques de l’abiratérone, avec risque de moindre efficacité." ;
+				   ansm:interactionSeverity <interactionSeverity/dec> .
+<subgrp/anticonvulsivants-enzymatic-inducers> <interaction/3> atc:L02BX03 .
+atc:L02BX03  <interaction/3> <subgrp/anticonvulsivants-enzymatic-inducers>.
+
+<interaction/4> rdf:type ansm:interaction ;
+				   rdfs:label "ABIRATERONE - Flécaïnide" ;
+				   rdfs:comment "Risque d'augmentation des effets indésirables du flecaïnide, par diminution de son métabolisme hépatique par l'abiratérone." ;
+				   ansm:attitude "Surveillance clinique. Si besoin, adaptation de la posologie du flécaïnide pendant le traitement par l'abiratérone." ;
+				   ansm:interactionSeverity <interactionSeverity/pe> .
+atc:L02BX03 <interaction/4> atc:C01BC04 .
+atc:C01BC04 <interaction/4> atc:L02BX03 .
+
+<interaction/5> rdf:type ansm:interaction ;
+				   rdfs:label "ABIRATERONE - Métoprolol" ;
+				   rdfs:comment "Chez l'insuffisant cardiaque, risque d'augmentation des effets indésirables du métoprolol, par diminution de son métabolisme hépatique par l'abiratérone." ;
+				   ansm:attitude "Surveillance clinique. Si besoin, adaptation de la posologie du métoprolol pendant le traitement par l'abiratérone." ;
+				   ansm:interactionSeverity <interactionSeverity/pe> .
+atc:L02BX03 <interaction/5> atc:C07AB02 .
+atc:C07AB02 <interaction/5> atc:L02BX03 .
+
+<interaction/6> rdf:type ansm:interaction ;
+				   rdfs:label "ABIRATERONE - propafénone" ;
+				   ansm:attitude "Surveillance clinique. Si besoin, adaptation de la posologie de la propafénone pendant le traitement par l'abiratérone." ;
+				   rdfs:comment "Risque d'augmentation des effets indésirables de la propafénone, par diminution de son métabolisme hépatique par l'abiratérone." ;
+				   ansm:interactionSeverity <interactionSeverity/pe> .
+atc:L02BX03 <interaction/6> atc:C01BC03 .
+atc:C01BC03 <interaction/6> atc:L02BX03 .
+
+<interaction/7> rdf:type ansm:interaction ;
+				   rdfs:label "ABIRATERONE - rifampicine" ;
+				   rdfs:comment "Diminution notable des concentrations plasmatiques de l’abiratérone, avec risque de moindre efficacité." ;
+				   ansm:interactionSeverity <interactionSeverity/dec> .
+atc:L02BX03 <interaction/7> atc:J04AB02 .
+atc:J04AB02 <interaction/7> atc:L02BX03 .
+
+<interaction/8> rdf:type ansm:interaction ;
+				   rdfs:label "ACETAZOLAMIDE - acide acétylsalicylique" ;
+				   rdfs:comment "Majoration des effets indésirables, et notamment de l'acidose métabolique, de l'acide acétylsalicylique à doses élevées et de l'acétazolamide, par diminution de l'élimination de l'acide acétylsalicylique par l'acétazolamide." ;
+				   ansm:interactionSeverity <interactionSeverity/dec> .
+atc:S01EC01 <interaction/8> atc:N02BA01 .
+atc:N02BA01 <interaction/8> atc:S01EC01 .
+
+<interaction/9> rdf:type ansm:interaction ;
+				   rdfs:label "ACETAZOLAMIDE - carbamézépine" ;
+				   rdfs:comment "Augmentation des concentrations plasmatiques de carbamazépine avec signes de surdosage." ;
+				   ansm:attitude "Surveillance clinique et, si besoin, contrôle des concentrations plasmatiques de carbamazépine et réduction éventuelle de sa posologie." ;
+				   ansm:interactionSeverity <interactionSeverity/pe> .
+atc:S01EC01 <interaction/9> atc:N03AF01 .
+atc:N03AF01 <interaction/9> atc:S01EC01 .
+
+<interaction/10> rdf:type ansm:interaction ;
+				   rdfs:label "ACETAZOLAMIDE - lithium" ;
+				   rdfs:comment "Diminution de la lithémie avec risque de baisse de l’efficacité thérapeutique." ;
+				   ansm:attitude "Surveillance stricte de la lithémie et adaptation éventuelle de la posologie du lithium." ;
+				   ansm:interactionSeverity <interactionSeverity/pe> .
+atc:S01EC01 <interaction/10> atc:N05AN01 .
+atc:N05AN01 <interaction/10> atc:S01EC01 .
+
+<interaction/11> rdf:type ansm:interaction ;
+				   rdfs:label "ACETAZOLAMIDE - acide valproïque et valpromide" ;
+				   rdfs:comment "Augmentation de l'hyperammoniémie, avec risque accru d'encéphalopathie." ;
+				   ansm:attitude "Surveillance clinique et biologique régulière." ;
+				   ansm:interactionSeverity <interactionSeverity/pe> .
+atc:S01EC01 <interaction/11> atc:N05AN01 .
+atc:S01EC01 <interaction/11> atc:N03AG01 .
+atc:N05AN01 <interaction/11> atc:S01EC01 .
+atc:N03AG01 <interaction/11> atc:S01EC01 .
+
+<interaction/12> rdf:type ansm:interaction ;
+				   rdfs:label "ACIDE ACETOHYDROXAMIQUE - fer" ;
+				   rdfs:comment "Diminution de l'absorption digestive de ces deux médicaments par chélation du fer." ;
+				   ansm:interactionSeverity <interactionSeverity/apec> .
+atc:A02BX13 <interaction/12> atc:B03A .
+atc:B03A <interaction/12> atc:A02BX13 .
+
+#page 3
+
+<interaction/13> rdf:type ansm:interaction ;
+				   rdfs:label "ACIDE ACETYLSALICYLIQUE - acétazolamide" ;
+				   rdfs:comment "Majoration des effets indésirables, et notamment de l'acidose Association DECONSEILLEE métabolique, de l'acide acétylsalicylique à doses élevées et de l'acétazolamide, par diminution de l'élimination de l'acide acétylsalicylique par l'acétazolamide." ;
+				   ansm:interactionSeverity <interactionSeverity/dec> .
+atc:N02BA01 <interaction/13> atc:S01EC01 .
+atc:S01EC01 <interaction/13> atc:N02BA01 .
+
+
+<interaction/14> rdf:type ansm:interaction ;
+				   rdfs:label "ACIDE ACETYLSALICYLIQUE - anagrélide" ;
+				   rdfs:comment "Majoration des événements hémorragiques." ;
+				   ansm:interactionSeverity <interactionSeverity/dec> .
+atc:N02BA01 <interaction/14> atc:L01XX35 .
+atc:S01EC01 <interaction/14> atc:N02BA01 .
+
+<interaction/15> rdf:type ansm:interaction ;
+				   rdfs:label "ACIDE ACETYLSALICYLIQUE - antagoniste de l'angiotension II" ;
+				   rdfs:comment "Pour des doses anti-inflammatoires d'acide acétylsalicylique (>= 1g par prise et/ou >= 3g par jour) ou pour des doses antalgiques ou antipyrétiques (>= 500 mg par prise et/ou < 3g par jour) : Insuffisance rénale aiguë chez le malade déshydraté, par diminution de la filtration glomérulaire secondaire à une diminution de la synthèse des prostaglandines rénales. Par ailleurs, réduction de l'effet antihypertenseur." ;
+				   ansm:attitude "Hydrater le malade et surveiller la fonction rénale en début de traitement." ;
+				   ansm:interactionSeverity <interactionSeverity/pe> .
+atc:N02BA01 <interaction/15> atc:C09C .
+atc:C09C <interaction/15> atc:N02BA01 .
+
+
+#todo describe, better implement all severities and doses
+<interaction/16> rdf:type ansm:interaction ;
+				   rdfs:label "ACIDE ACETYLSALICYLIQUE - anticoagulants oraux" ;
+				   rdfs:comment "Majoration du risque hémorragique, notamment en cas d’antécédent d’ulcère gastro-duodénal." ;
+				   ansm:attitude ''' Contre-indication avec :
+- des doses anti-inflammatoires d'acide acétylsalicylique (>=1g par prise et/ou >=3g par jour)
+- des doses antalgiques ou antipyrétiques (>=500 mg par prise et/ou <3g par jour) et en cas d’antécédent d’ulcère gastro-duodénal
+Association déconseillée avec :
+- des doses antalgiques ou antipyrétiques (>=500 mg par prise et/ou <3g par jour) en l'absence d’antécédent d’ulcère gastro-duodénal
+- des doses antiagrégantes (de 50 mg à 375 mg par jour) et en cas d’antécédent d’ulcère gastro-duodénal. Nécessité d'un contrôle le cas échéant, en particulier du temps de saignement.
+A prendre en compte avec :
+- des doses antiagrégantes (de 50 mg à 375 mg par jour)''';
+				   ansm:interactionSeverity <interactionSeverity/pe> .
+atc:N02BA01 <interaction/16> atc:B01 .
+atc:B01 <interaction/16> atc:N02BA01 .
+
+#todo describe, better implement all severities and doses
+<interaction/17> rdf:type ansm:interaction ;
+				   rdfs:label "ACIDE ACETYLSALICYLIQUE - antiinflammatoires non stéroïdiens" ;
+				   rdfs:comment "Majoration du risque ulcérogène et hémorragique digestif." ;
+				   ansm:attitude ''' Association déconseillée avec :
+- des doses anti-inflammatoires d'acide acétylsalicylique (>=1g par prise et/ou >=3g par jour)
+- des doses antalgiques ou antipyrétiques (>=500 mg par prise et/ou <3g par jour)
+A prendre en compte avec :
+- des doses antiagrégantes (de 50 mg à 375 mg par jour en 1 ou plusieurs prises)''' ;
+				   ansm:interactionSeverity <interactionSeverity/pe> .
+atc:N02BA01 <interaction/17> atc:M01 .
+atc:M01 <interaction/17> atc:N02BA01 .
+
+#todo describe, better implement all severities and clinical situations
+<interaction/18> rdf:type ansm:interaction ;
+				   rdfs:label "ACIDE ACETYLSALICYLIQUE - clopidogrel" ;
+				   rdfs:comment "Majoration du risque hémorragique par addition des activités antiagrégantes plaquettaires." ;
+				   ansm:attitude '''Association déconseillée :
+- en dehors des indications validées pour cette association dans les syndromes coronariens aigus.
+Précaution d'emploi :
+- dans les indications validées pour cette association dans les syndromes coronariens aigus. Surveillance clinique.''' ;
+				  ansm:interactionSeverity <interactionSeverity/pe> .
+atc:N02BA01 <interaction/18> atc:B01AC04 .
+atc:B01AC04 <interaction/18> atc:N02BA01 .
+
+<interaction/18> rdf:type ansm:interaction ;
+				   rdfs:label "ACIDE ACETYLSALICYLIQUE - cobimétinib" ;
+				   rdfs:comment "Augmentation du risque hémorragique." ;
+				   ansm:attitude "Surveillance clinique" ;
+				   ansm:interactionSeverity <interactionSeverity/pe> .
+atc:N02BA01 <interaction/18> atc:L01XE38 .
+atc:L01XE38 <interaction/18> atc:N02BA01 .		   
+
+<interaction/19> rdf:type ansm:interaction ;
+				   rdfs:label "ACIDE ACETYLSALICYLIQUE - déférasirox" ;
+				   rdfs:comment "Majoration du risque ulcérogène et hémorragique digestif." ;
+				   ansm:attitude '''A prendre en compte :
+- Pour des doses anti-inflammatoires d'acide acétylsalicylique ( 1g par prise et/ou 3g par jour)
+- Pour des doses antalgiques ou antipyrétiques d'acide acétylsalicylique ( 500 mg par prise et/ou <3g par jour) et ( 500 mg par prise et/ou <3g par jour)''' ;
+				   ansm:interactionSeverity <interactionSeverity/pe> .
+atc:N02BA01 <interaction/19> atc:V03AC03 .
+atc:V03AC03 <interaction/19> atc:N02BA01 .
+
+#page 4
+
+				   
